@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 确认对话框样式【含有标题、左中右三个按钮】布局文件 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
-    android:gravity="center">
+    android:gravity="center" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/confirm_cancel_dialog_margin"
         android:layout_marginRight="@dimen/confirm_cancel_dialog_margin"
         android:background="@drawable/dialog_confirm_cancel_bg" >
-		<!-- 标题 -->
+        <!-- 标题 -->
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -21,9 +21,9 @@
             android:gravity="center"
             android:text="@string/confirm_cancel_title"
             android:textColor="@color/confirm_cancel_dialog_title_color"
-            android:textSize="@dimen/confirm_cancel_dialog_title_text_size" 
+            android:textSize="@dimen/confirm_cancel_dialog_title_text_size"
             android:padding="@dimen/confirm_cancel_dialog_title_padding"/>
-		<!-- 标题下的中横线 -->
+        <!-- 标题下的中横线 -->
         <TextView
             android:id="@+id/delever_up_message"
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="@dimen/confirm_cancel_dialog_delever_margin"
             android:layout_marginRight="@dimen/confirm_cancel_dialog_delever_margin"
             android:background="@color/confirm_cancel_dialog_delever_h_color" />
-		<!-- 内容 -->
+        <!-- 内容 -->
         <TextView
             android:id="@+id/message"
             android:layout_width="match_parent"
@@ -41,19 +41,28 @@
             android:gravity="center"
             android:textColor="@color/confirm_cancel_dialog_message_color"
             android:text=""
-            android:textSize="@dimen/confirm_cancel_dialog_message_text_size" 
+            android:textSize="@dimen/confirm_cancel_dialog_message_text_size"
             android:paddingTop="@dimen/confirm_cancel_dialog_message_padding"
             android:paddingBottom="@dimen/confirm_cancel_dialog_message_padding"
             android:paddingLeft="@dimen/confirm_cancel_dialog_delever_margin"
             android:paddingRight="@dimen/confirm_cancel_dialog_delever_margin"/>
-		<!-- 底部按钮区域 -->
+        <!-- 内容下的中横线 -->
+        <View
+            android:id="@+id/delever_down_message"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/message"
+            android:layout_marginLeft="@dimen/confirm_cancel_dialog_delever_margin"
+            android:layout_marginRight="@dimen/confirm_cancel_dialog_delever_margin"
+            android:background="@color/confirm_cancel_dialog_delever_v_color" />
+        <!-- 底部按钮区域 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/message"
+            android:layout_below="@id/delever_down_message"
             android:orientation="horizontal"
             android:background="@android:color/transparent" >
-			<!-- 取消按钮 -->
+            <!-- 取消按钮 -->
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="0.0dp"
@@ -62,20 +71,18 @@
                 android:background="@drawable/dialog_confirm_cancel_left_btn_bg"
                 android:gravity="center"
                 android:text="@string/confirm_cancel_left_btn"
+                android:textStyle="bold"
                 android:textColor="@color/confirm_cancel_dialog_btn_ctext_color"
                 android:textSize="@dimen/confirm_cancel_dialog_btn_text_size"
                 android:paddingTop="@dimen/confirm_cancel_dialog_title_padding"
                 android:paddingBottom="@dimen/confirm_cancel_dialog_title_padding" />
-			<!-- 取消按钮旁边的中竖线 -->
+            <!-- 取消按钮旁边的中竖线 -->
             <View
                 android:id="@+id/leftdeliver"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/confirm_cancel_dialog_delever_margin"
-                android:layout_marginBottom="@dimen/confirm_cancel_dialog_delever_margin"
                 android:background="@color/confirm_cancel_dialog_delever_v_color"
-                android:orientation="vertical"/>
-
+                android:orientation="vertical" />
             <!-- 中间按钮 -->
             <Button
                 android:id="@+id/between"
@@ -84,22 +91,20 @@
                 android:layout_weight="1.0"
                 android:background="@drawable/dialog_confirm_cancel_center_btn_bg"
                 android:gravity="center"
-                android:text="@string/confirm_between_btn"
+                android:text=""
+                android:textStyle="bold"
                 android:textColor="@color/confirm_cancel_dialog_btn_ctext_color"
                 android:textSize="@dimen/confirm_cancel_dialog_btn_text_size"
                 android:paddingTop="@dimen/confirm_cancel_dialog_title_padding"
                 android:paddingBottom="@dimen/confirm_cancel_dialog_title_padding" />
-
             <!-- 确定按钮旁边的中竖线 -->
             <View
                 android:id="@+id/rightdeliver"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/confirm_cancel_dialog_delever_margin"
-                android:layout_marginBottom="@dimen/confirm_cancel_dialog_delever_margin"
                 android:background="@color/confirm_cancel_dialog_delever_v_color"
-                android:orientation="vertical"/>
-			<!-- 确定按钮 -->
+                android:orientation="vertical" />
+            <!-- 确定按钮 -->
             <Button
                 android:id="@+id/confirm"
                 android:layout_width="0.0dip"
@@ -108,6 +113,7 @@
                 android:background="@drawable/dialog_confirm_cancel_right_btn_bg"
                 android:gravity="center"
                 android:text="@string/confirm_cancel_right_btn"
+                android:textStyle="bold"
                 android:textColor="@color/confirm_cancel_dialog_btn_ctext_color"
                 android:textSize="@dimen/confirm_cancel_dialog_btn_text_size"
                 android:paddingTop="@dimen/confirm_cancel_dialog_title_padding"

@@ -176,7 +176,7 @@ public class MainActivity extends FragmentActivity {
 				ConfirmCancelDialog dialog = ConfirmCancelDialog.getInstance(MainActivity.this,new ConfirmCancelDialog.DialogSetListener() {
 
 					public void setDialog(TextView title, TextView message, Button leftBtn, Button betweenBtn, Button rightBtn) {
-						message.setText("当内容文本很多的时候，需要手动设置居左【message.setGravity(Gravity.LEFT)】");
+						message.setText("当内容文本很多的时候，可以手动设置居左【message.setGravity(Gravity.LEFT)】");
 						message.setGravity(Gravity.LEFT);//如果内容很多的话，需要手动设置居左
 						betweenBtn.setVisibility(GONE);
 					}

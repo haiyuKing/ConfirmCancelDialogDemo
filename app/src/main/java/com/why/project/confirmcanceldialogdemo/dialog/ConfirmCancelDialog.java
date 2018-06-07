@@ -1,7 +1,6 @@
 package com.why.project.confirmcanceldialogdemo.dialog;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,11 +24,9 @@ import com.why.project.confirmcanceldialogdemo.R;
  */
 public class ConfirmCancelDialog extends DialogFragment{
 	
-	private static final String TAG = "ConfirmCancelDialog";
+	private static final String TAG = ConfirmCancelDialog.class.getSimpleName();
 	/**View实例*/
 	private View myView;
-	/**context实例*/
-	private Context mContext;
 	/**标记：用来代表是从哪个界面打开的这个对话框*/
 	private String mTag;
 	
@@ -41,26 +37,18 @@ public class ConfirmCancelDialog extends DialogFragment{
 
 	public static ConfirmCancelDialog getInstance(Context mContext, DialogSetListener mDialogSetListener){
 		ConfirmCancelDialog dialog = new ConfirmCancelDialog();
-		dialog.mContext = mContext;
 		dialog.mDialogSetListener = mDialogSetListener;
 
 		return dialog;
 	}
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_NoTitleBar_Fullscreen);//全屏
-	}
-	
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));//设置背景为半透明，并且没有标题
+		getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));//设置背景为透明，并且没有标题
+		//getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#80000000")));//设置背景为半透明，并且没有标题
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
-		//设置窗体全屏
-	    getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-	    
+
 		myView = inflater.inflate(R.layout.dialog_confirm_cancel, container, false);
 		return myView;
 	}
@@ -81,17 +69,12 @@ public class ConfirmCancelDialog extends DialogFragment{
 		super.onStart();
 
 		//设置对话框的宽高，必须在onStart中
-//		Window window = this.getDialog().getWindow();
-//		window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);//全屏（盖住状态栏）
-//		window.setGravity(Gravity.BOTTOM);//设置在底部
-		//打开的动画效果--缩放+渐隐
-
-		//设置对话框的宽高，必须在onStart中
 		DisplayMetrics metrics = new DisplayMetrics();
 		this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		Window window = this.getDialog().getWindow();
-		window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));
-		window.setGravity(Gravity.BOTTOM);//设置在底部
+		window.setLayout(metrics.widthPixels, this.getDialog().getWindow().getAttributes().height);//这样才能实现点击空白区域自动隐藏对话框
+		//window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));//这样可以实现点击空白区域无法隐藏对话框的功能
+		window.setGravity(Gravity.CENTER);//设置在中间
 		//打开的动画效果--缩放+渐隐
 	}
 
@@ -211,10 +194,6 @@ public class ConfirmCancelDialog extends DialogFragment{
 		 * @param betweenBtn - 中间按钮控件【默认空白】
 		 * @param rightBtn - 右侧按钮控件【默认“确定”】*/
 		public abstract void setDialog(TextView title, TextView message, Button leftBtn, Button betweenBtn, Button rightBtn);
-	}
-	
-	public void setDialogSetListener(DialogSetListener dialogSetListener) {
-		mDialogSetListener = dialogSetListener;
 	}
 	
 	/**三个按钮的点击事件监听器*/
