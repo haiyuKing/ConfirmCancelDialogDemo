@@ -44,8 +44,8 @@
             android:textSize="@dimen/confirm_cancel_dialog_message_text_size"
             android:paddingTop="@dimen/confirm_cancel_dialog_message_padding"
             android:paddingBottom="@dimen/confirm_cancel_dialog_message_padding"
-            android:paddingLeft="@dimen/confirm_cancel_dialog_delever_margin"
-            android:paddingRight="@dimen/confirm_cancel_dialog_delever_margin"/>
+            android:paddingLeft="@dimen/confirm_cancel_dialog_title_padding"
+            android:paddingRight="@dimen/confirm_cancel_dialog_title_padding"/>
         <!-- 内容下的中横线 -->
         <View
             android:id="@+id/delever_down_message"

@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
 		btn_confirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				ConfirmCancelDialog dialog = ConfirmCancelDialog.getInstance(MainActivity.this,new ConfirmCancelDialog.DialogSetListener() {
+				ConfirmCancelDialog dialog = ConfirmCancelDialog.getInstance(MainActivity.this,true,new ConfirmCancelDialog.DialogSetListener() {
 
 					public void setDialog(TextView title, TextView message, Button leftBtn, Button betweenBtn, Button rightBtn) {
 						message.setText("请检查用户名");

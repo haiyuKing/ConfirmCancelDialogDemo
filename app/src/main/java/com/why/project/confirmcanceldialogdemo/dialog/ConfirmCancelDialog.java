@@ -1,6 +1,7 @@
 package com.why.project.confirmcanceldialogdemo.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,10 +27,14 @@ import com.why.project.confirmcanceldialogdemo.R;
 public class ConfirmCancelDialog extends DialogFragment{
 	
 	private static final String TAG = ConfirmCancelDialog.class.getSimpleName();
+
+	private Context mContext;
 	/**View实例*/
 	private View myView;
 	/**标记：用来代表是从哪个界面打开的这个对话框*/
 	private String mTag;
+
+	private boolean locked;//点击空白区域是否隐藏对话框
 	
 	/**设置对话框内容和样式的监听器（标题、内容、按钮样式，包括控制隐藏）*/
 	private DialogSetListener mDialogSetListener;
@@ -36,7 +42,13 @@ public class ConfirmCancelDialog extends DialogFragment{
 	private DialogClickListener mDialogClickListener;
 
 	public static ConfirmCancelDialog getInstance(Context mContext, DialogSetListener mDialogSetListener){
+		return getInstance(mContext,false,mDialogSetListener);
+	}
+
+	public static ConfirmCancelDialog getInstance(Context mContext, boolean locked, DialogSetListener mDialogSetListener){
 		ConfirmCancelDialog dialog = new ConfirmCancelDialog();
+		dialog.mContext = mContext;
+		dialog.locked = locked;
 		dialog.mDialogSetListener = mDialogSetListener;
 
 		return dialog;
@@ -50,6 +62,19 @@ public class ConfirmCancelDialog extends DialogFragment{
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
 
 		myView = inflater.inflate(R.layout.dialog_confirm_cancel, container, false);
+
+		if(locked) {
+			this.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_BACK) {
+						return true; // return true是中断事件，那么下面的就接受不到按键信息了
+					} else {
+						return false; //在return false的时候 才会事件继续向下传递。
+					}
+				}
+			});
+		}
+
 		return myView;
 	}
 	
@@ -72,8 +97,11 @@ public class ConfirmCancelDialog extends DialogFragment{
 		DisplayMetrics metrics = new DisplayMetrics();
 		this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		Window window = this.getDialog().getWindow();
-		window.setLayout(metrics.widthPixels, this.getDialog().getWindow().getAttributes().height);//这样才能实现点击空白区域自动隐藏对话框
-		//window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));//这样可以实现点击空白区域无法隐藏对话框的功能
+		if(locked){
+			window.setLayout(metrics.widthPixels, metrics.heightPixels - getStatusBarHeight(mContext));//这样可以实现点击空白区域无法隐藏对话框的功能
+		}else {
+			window.setLayout(metrics.widthPixels, this.getDialog().getWindow().getAttributes().height);//这样才能实现点击空白区域自动隐藏对话框
+		}
 		window.setGravity(Gravity.CENTER);//设置在中间
 		//打开的动画效果--缩放+渐隐
 	}
