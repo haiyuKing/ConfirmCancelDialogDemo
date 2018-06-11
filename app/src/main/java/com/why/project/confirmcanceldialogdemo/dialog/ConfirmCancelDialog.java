@@ -111,6 +111,15 @@ public class ConfirmCancelDialog extends DialogFragment{
 		int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
 		return context.getResources().getDimensionPixelSize(resourceId);
 	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		super.onDismiss(dialog);
+		//根据需要执行
+		if(mDialogClickListener != null){
+			mDialogClickListener.cancelClickListener();
+		}
+	}
 	
 	/**实例化控件*/
 	@SuppressWarnings("deprecation")
