@@ -117,7 +117,7 @@ public class ConfirmCancelDialog extends DialogFragment{
 		super.onDismiss(dialog);
 		//根据需要执行
 		if(mDialogClickListener != null){
-			mDialogClickListener.cancelClickListener();
+			mDialogClickListener.onDismissListener();
 		}
 	}
 	
@@ -242,6 +242,8 @@ public class ConfirmCancelDialog extends DialogFragment{
 		public abstract void cancelClickListener();
 		/**确定按钮*/
 		public abstract void confirmClickListener();
+		//返回键触发的事件接口
+		public abstract  void onDismissListener();
 	}
 
 	public void setDialogClickListener(DialogClickListener dialogClickListener) {

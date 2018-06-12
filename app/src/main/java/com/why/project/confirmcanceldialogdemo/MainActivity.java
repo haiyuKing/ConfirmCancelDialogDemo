@@ -67,6 +67,11 @@ public class MainActivity extends FragmentActivity {
 						Toast.makeText(MainActivity.this,"确定",Toast.LENGTH_SHORT).show();
 					}
 
+					@Override
+					public void onDismissListener() {
+
+					}
+
 				});
 				dialog.show(getSupportFragmentManager(), "confirmDialog");
 			}
@@ -97,6 +102,11 @@ public class MainActivity extends FragmentActivity {
 					@Override
 					public void confirmClickListener() {
 						Toast.makeText(MainActivity.this,"确定",Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onDismissListener() {
+
 					}
 
 				});
@@ -132,6 +142,11 @@ public class MainActivity extends FragmentActivity {
 						Toast.makeText(MainActivity.this,"保存",Toast.LENGTH_SHORT).show();
 					}
 
+					@Override
+					public void onDismissListener() {
+
+					}
+
 				});
 				dialog.show(getSupportFragmentManager(), "confirmCancelBetweenDialog");
 			}
@@ -165,6 +180,11 @@ public class MainActivity extends FragmentActivity {
 						Toast.makeText(MainActivity.this,"确定",Toast.LENGTH_SHORT).show();
 					}
 
+					@Override
+					public void onDismissListener() {
+
+					}
+
 				});
 				dialog.show(getSupportFragmentManager(), "noTitleDialog");
 			}
@@ -196,6 +216,11 @@ public class MainActivity extends FragmentActivity {
 					@Override
 					public void confirmClickListener() {
 						Toast.makeText(MainActivity.this,"确定",Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onDismissListener() {
+
 					}
 
 				});
